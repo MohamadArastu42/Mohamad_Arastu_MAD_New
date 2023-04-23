@@ -18,14 +18,14 @@ fun Navigation() {
     val movieViewModel: MoviesViewModel = viewModel()
 
     NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
-        composable(route = Screen.MainScreen.route){
+        composable(route = Screen.MainScreen.route) {
             HomeScreen(navController = navController, moviesViewModel = movieViewModel)
         }
 
         composable(Screen.FavoriteScreen.route) {
             FavoriteScreen(navController = navController, moviesViewModel = movieViewModel)
         }
-        
+
         composable(Screen.AddMovieScreen.route) {
             AddMovieScreen(navController = navController, moviesViewModel = movieViewModel)
         }
@@ -33,11 +33,15 @@ fun Navigation() {
         // build a route like: root/detail-screen/id=34
         composable(
             Screen.DetailScreen.route,
-            arguments = listOf(navArgument(name = DETAIL_ARGUMENT_KEY) {type = NavType.StringType})
+            arguments = listOf(navArgument(name = DETAIL_ARGUMENT_KEY) {
+                type = NavType.StringType
+            })
         ) { backStackEntry ->    // backstack contains all information from navhost
-            DetailScreen(navController = navController,
+            DetailScreen(
+                navController = navController,
                 moviesViewModel = movieViewModel,
-                movieId = backStackEntry.arguments?.getString(DETAIL_ARGUMENT_KEY))   // get the argument from navhost that will be passed
+                movieId = backStackEntry.arguments?.getString(DETAIL_ARGUMENT_KEY)
+            )   // get the argument from navhost that will be passed
         }
     }
 }
